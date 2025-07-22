@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using TicketingSample.Services;
 
 namespace TicketingSample.Routes
 {
@@ -6,8 +7,11 @@ namespace TicketingSample.Routes
     {
         public static void MapTicketEndpoints(this WebApplication app)
         {
-            app.MapGet("/tickets", () => Results.Ok(new[] { "Ticket1", "Ticket2" }));
-            
+            app.MapGet("/tickets", (TicketService service) =>
+            {
+                return Results.Ok(service.GetAllTickets());
+            });
+
             // app.MapPost("/tickets", ...);
             // app.MapPut("/tickets/{id}", ...);
             // app.MapDelete("/tickets/{id}", ...);
